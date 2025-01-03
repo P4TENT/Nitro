@@ -16,7 +16,7 @@ namespace Nitro {
 	public:
 		Application();
 		virtual ~Application();
-		
+
 		void Run();
 
 		void OnEvent(Event& e);
@@ -30,9 +30,9 @@ namespace Nitro {
 	private:
 		LayerStack m_LayerStack;
 		std::unique_ptr<Window> m_Window;
-		bool m_Running = true;	
+		bool m_Running = true;
 		static Application* s_Instance;
-	}; 
+	};
 
 	// To be defined in client
 	Application* CreateApplication();

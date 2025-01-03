@@ -3,6 +3,7 @@
 #include "Nitro/Application.h"
 #include "Nitro/Layer.h"
 #include "Nitro/Log.h"
+#include "Nitro/ImGui/ImGuiLayer.h"
 
 #include "Nitro/ImGui/ImGuiLayer.h"
 
