@@ -2,6 +2,8 @@
 
 #include "Nitro/Application.h"
 
+#include "Nitro/Log.h"
+
 /////////////////////////////
 // ----- ENTRY POINT ----- //
 /////////////////////////////
