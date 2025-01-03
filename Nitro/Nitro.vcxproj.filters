@@ -34,6 +34,12 @@
     <ClInclude Include="src\Nitro\Events\MouseEvent.h">
       <Filter>Nitro\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Nitro\Layer.h">
+      <Filter>Nitro</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Nitro\LayerStack.h">
+      <Filter>Nitro</Filter>
+    </ClInclude>
     <ClInclude Include="src\Nitro\Log.h">
       <Filter>Nitro</Filter>
     </ClInclude>
@@ -47,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Nitro\Application.cpp">
+      <Filter>Nitro</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Nitro\Layer.cpp">
+      <Filter>Nitro</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Nitro\LayerStack.cpp">
       <Filter>Nitro</Filter>
     </ClCompile>
     <ClCompile Include="src\Nitro\Log.cpp">

@@ -12,7 +12,9 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Nitro/vendor/GLFW/include"
+IncludeDir["Glad"] = "Nitro/vendor/Glad/include"
 include "Nitro/vendor/GLFW"
+include "Nitro/vendor/Glad"
 
 project "Nitro"
 	location "Nitro"
@@ -31,11 +33,13 @@ project "Nitro"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 	links 
 	{
-		"GLFW",
+		"GLFW", 
+		"Glad",
 		"opengl32.lib"
 	}
 	filter "system:windows"
@@ -45,7 +49,8 @@ project "Nitro"
 		defines
 		{
 			"NG_PLATFORM_WINDOWS",
-			"NG_BUILD_DLL"
+			"NG_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 		postbuildcommands
 		{

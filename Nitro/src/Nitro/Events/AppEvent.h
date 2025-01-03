@@ -16,7 +16,7 @@ namespace Nitro {
 
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "[WINDOW-RESIZE-EVENT]: " << m_width << ", " << m_height;
+			ss << "WindowResizeEvent: " << m_width << ", " << m_height;
 			return ss.str();
 		}
 

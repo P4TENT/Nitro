@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Nitro/Application.h"
-
+#include "Nitro/Layer.h"
 #include "Nitro/Log.h"
 
 /////////////////////////////

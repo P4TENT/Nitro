@@ -1,13 +1,38 @@
 #include <Nitro.h>
 
-class Sandbox : public Nitro::Application {
+class ExampleLayer : public Nitro::Layer
+{
 public:
-	Sandbox() 
+	ExampleLayer()
+		: Layer("Example")
 	{
 	}
-	~Sandbox() 
+
+	void OnUpdate() override
 	{
+		NG_CORE_INFO("ExampleLayer::Update");
 	}
+
+	void OnEvent(Nitro::Event& event) override
+	{
+		NG_CORE_TRACE("{0}", event.ToString());
+	}
+
+};
+
+class Sandbox : public Nitro::Application
+{
+public:
+	Sandbox()
+	{
+		PushLayer(new ExampleLayer());
+	}
+
+	~Sandbox()
+	{
+
+	}
+
 };
 
 Nitro::Application* Nitro::CreateApplication()

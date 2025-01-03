@@ -30,9 +30,9 @@ namespace Nitro {
 	class NITRO_API Event 
 	{
 		friend class EventDispatcher;
-	
-	protected:
-		bool m_Handled = false;
+
+	public:
+		bool Handled = false;
 	
 	public:
 		virtual EventType GetEventType() const = 0;
@@ -62,7 +62,7 @@ namespace Nitro {
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				m_Event.Handled = func(*(T*)&m_Event);
 				return true;
 			}
 			return false;
