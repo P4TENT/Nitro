@@ -22,8 +22,10 @@ project "Nitro"
 	location "Nitro"
 	kind "SharedLib"
 	language "C++"
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
 	pchheader "ngpch.h"
 	pchsource "Nitro/src/ngpch.cpp"
 	files
@@ -48,7 +50,7 @@ project "Nitro"
 	}
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "Off"  -- SharedLib should use dynamic runtime
+		staticruntime "On"  -- SharedLib should use dynamic runtime
 		systemversion "latest"
 		defines
 		{
@@ -61,55 +63,62 @@ project "Nitro"
 			"{COPY} %{cfg.buildtarget.relpath} ../bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/Sandbox"
 		}
 	filter "configurations:Debug"
-		runtime "Debug"
 		defines "NG_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 	filter "configurations:Release"
-		runtime "Release"
 		defines "NG_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 	filter "configurations:Dist"
-		runtime "Release"
 		defines "NG_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
 	files
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp"
 	}
+
 	includedirs
 	{
 		"Nitro/vendor/spdlog/include",
 		"Nitro/src"
 	}
+
 	links
 	{
 		"Nitro"
 	}
+
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "Off"  -- Ensure consistency with Nitro
+		staticruntime "On"  -- Ensure consistency with Nitro
 		systemversion "latest"
+
 		defines
 		{
 			"NG_PLATFORM_WINDOWS"
 		}
+
 	filter "configurations:Debug"
-		runtime "Debug"
 		defines "NG_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 	filter "configurations:Release"
-		runtime "Release"
 		defines "NG_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 	filter "configurations:Dist"
-		runtime "Release"
 		defines "NG_DIST"
+		buildoptions "/MD"
 		optimize "On"
