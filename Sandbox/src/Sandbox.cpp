@@ -10,12 +10,12 @@ public:
 
 	void OnUpdate() override
 	{
-		NG_CORE_INFO("ExampleLayer::Update");
+		//NG_CORE_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Nitro::Event& event) override
 	{
-		NG_CORE_TRACE("{0}", event.ToString());
+		//NG_CORE_TRACE("{0}", event.ToString());
 	}
 
 };
@@ -26,6 +26,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Nitro::ImGuiLayer());
 	}
 
 	~Sandbox()

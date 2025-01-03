@@ -1,10 +1,10 @@
 #include "ngpch.h"
 #include "WindowsWindow.h"
 
-#include "../Nitro/Events/Event.h"
-#include "../Nitro/Events/AppEvent.h"
-#include "../Nitro/Events/KeyEvent.h"
-#include "../Nitro/Events/MouseEvent.h"
+#include "../../Nitro/Events/Event.h"
+#include "../../Nitro/Events/AppEvent.h"
+#include "../../Nitro/Events/KeyEvent.h"
+#include "../../Nitro/Events/MouseEvent.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

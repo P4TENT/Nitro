@@ -4,6 +4,8 @@
 #include "Nitro/Layer.h"
 #include "Nitro/Log.h"
 
+#include "Nitro/ImGui/ImGuiLayer.h"
+
 /////////////////////////////
 // ----- ENTRY POINT ----- //
 /////////////////////////////

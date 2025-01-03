@@ -4,3 +4,6 @@
 [submodule "Nitro/vendor/GLFW"]
 	path = Nitro/vendor/GLFW
 	url = https://github.com/TheCherno/GLFW
+[submodule "Nitro/vendor/imgui"]
+	path = Nitro/vendor/imgui
+	url = https://github.com/TheCherno/imgui
