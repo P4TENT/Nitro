@@ -10,6 +10,9 @@
     <Filter Include="Nitro\ImGui">
       <UniqueIdentifier>{BB553B07-270B-B4FC-B0FF-ADD31CB4AA00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Nitro\Input">
+      <UniqueIdentifier>{90903C07-FC45-B5FC-853A-AFD3F1EEAB00}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
@@ -46,6 +49,15 @@
     <ClInclude Include="src\Nitro\ImGui\ImGuiLayer.h">
       <Filter>Nitro\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Nitro\Input\Input.h">
+      <Filter>Nitro\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Nitro\Input\KeyCodes.h">
+      <Filter>Nitro\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Nitro\Input\MouseButtonCodes.h">
+      <Filter>Nitro\Input</Filter>
+    </ClInclude>
     <ClInclude Include="src\Nitro\Layer.h">
       <Filter>Nitro</Filter>
     </ClInclude>
@@ -61,11 +73,13 @@
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\ngpch.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Nitro\Application.cpp">
@@ -86,11 +100,12 @@
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\ngpch.cpp" />
-    <ClCompile Include="src\Nitro\Input.h" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

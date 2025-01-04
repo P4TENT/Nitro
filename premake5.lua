@@ -14,6 +14,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Nitro/vendor/GLFW/include"
 IncludeDir["Glad"] = "Nitro/vendor/Glad/include"
 IncludeDir["ImGui"] = "Nitro/vendor/imgui"
+IncludeDir["glm"] = "Nitro/vendor/glm"
 include "Nitro/vendor/GLFW"
 include "Nitro/vendor/Glad"
 include "Nitro/vendor/imgui"
@@ -39,7 +40,8 @@ project "Nitro"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 	links 
 	{
@@ -92,7 +94,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Nitro/vendor/spdlog/include",
-		"Nitro/src"
+		"Nitro/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links
