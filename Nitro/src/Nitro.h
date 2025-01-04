@@ -6,10 +6,15 @@
 
 #include "Nitro/ImGui/ImGuiLayer.h"
 
+#include "Nitro/Input/Input.h"
+#include "Nitro/Input/KeyCodes.h"
+#include "Nitro/Input/MouseButtonCodes.h"
+
 /////////////////////////////
 // ----- ENTRY POINT ----- //
 /////////////////////////////
 #include "Nitro/EntryPoint.h"
 /////////////////////////////
+// 
 // ----- ENTRY POINT ----- //
 /////////////////////////////

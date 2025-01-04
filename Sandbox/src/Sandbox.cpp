@@ -10,7 +10,6 @@ public:
 
 	void OnUpdate() override
 	{
-		//NG_CORE_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Nitro::Event& event) override

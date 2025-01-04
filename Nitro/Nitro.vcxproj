@@ -164,6 +164,8 @@
     <ClInclude Include="src\Nitro\Events\KeyEvent.h" />
     <ClInclude Include="src\Nitro\Events\MouseEvent.h" />
     <ClInclude Include="src\Nitro\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Nitro\Input\KeyCodes.h" />
+    <ClInclude Include="src\Nitro\Input\MouseButtonCodes.h" />
     <ClInclude Include="src\Nitro\Layer.h" />
     <ClInclude Include="src\Nitro\LayerStack.h" />
     <ClInclude Include="src\Nitro\Log.h" />
@@ -176,7 +178,7 @@
   <ItemGroup>
     <ClCompile Include="src\Nitro\Application.cpp" />
     <ClCompile Include="src\Nitro\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Nitro\Input.h" />
+    <ClCompile Include="src\Nitro\Input\Input.h" />
     <ClCompile Include="src\Nitro\Layer.cpp" />
     <ClCompile Include="src\Nitro\LayerStack.cpp" />
     <ClCompile Include="src\Nitro\Log.cpp" />
