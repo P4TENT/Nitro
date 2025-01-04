@@ -7,6 +7,8 @@
 #include "Nitro/Events/Event.h"
 #include "Nitro/Events/AppEvent.h"
 
+#include "Nitro/ImGui/ImGuiLayer.h"
+
 namespace Nitro {
 
 	class NITRO_API Application
@@ -29,6 +31,7 @@ namespace Nitro {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	private:
