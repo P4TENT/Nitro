@@ -10,11 +10,13 @@ public:
 
 	void OnUpdate() override
 	{
+		if (Nitro::Input::IsKeyPressed(N_KEY_TAB))
+			NG_CLIENT_TRACE("Tab Key Pressed! (update)");
 	}
 
 	void OnEvent(Nitro::Event& event) override
 	{
-		//NG_CORE_TRACE("{0}", event.ToString());
+
 	}
 
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Nitro/Input.h"
+#include "Nitro/Input/Input.h"
 
 namespace Nitro {
 	class WindowsInput : public Input {
