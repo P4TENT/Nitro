@@ -65,6 +65,7 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\ngpch.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Nitro\Application.cpp">
@@ -89,5 +90,7 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\ngpch.cpp" />
+    <ClCompile Include="src\Nitro\Input.h" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>
