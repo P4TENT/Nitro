@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Nitro/Window.h"
+#include "Nitro/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -12,6 +13,8 @@ namespace Nitro {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
+
 		struct WindowData
 		{
 			std::string Title;
@@ -19,6 +22,7 @@ namespace Nitro {
 			bool VSync;
 			EventCallbackFn EventCallback;
 		};
+
 		WindowData m_Data;
 	public:
 		WindowsWindow(const WindowProps& props);

@@ -15,14 +15,17 @@ IncludeDir["GLFW"] = "Nitro/vendor/GLFW/include"
 IncludeDir["Glad"] = "Nitro/vendor/Glad/include"
 IncludeDir["ImGui"] = "Nitro/vendor/imgui"
 IncludeDir["glm"] = "Nitro/vendor/glm"
+
 include "Nitro/vendor/GLFW"
 include "Nitro/vendor/Glad"
 include "Nitro/vendor/imgui"
 
 project "Nitro"
 	location "Nitro"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -34,6 +37,12 @@ project "Nitro"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp"
 	}
+
+	defines 
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
 	includedirs
 	{
 		"%{prj.name}/src",
@@ -51,36 +60,33 @@ project "Nitro"
 		"opengl32.lib"
 	}
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"  -- SharedLib should use dynamic runtime
 		systemversion "latest"
+
 		defines
 		{
 			"NG_PLATFORM_WINDOWS",
 			"NG_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
-		postbuildcommands
-		{
-			"{COPY} %{cfg.buildtarget.relpath} ../bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/Sandbox"
-		}
 	filter "configurations:Debug"
 		defines "NG_DEBUG"
-		buildoptions "/MDd"
-		symbols "On"
+		runtime "Debug"
+		symbols "on"
 	filter "configurations:Release"
 		defines "NG_RELEASE"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 	filter "configurations:Dist"
 		defines "NG_DIST"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -94,6 +100,7 @@ project "Sandbox"
 	includedirs
 	{
 		"Nitro/vendor/spdlog/include",
+		"Nitro/vendor/imgui",
 		"Nitro/src",
 		"%{IncludeDir.glm}"
 	}
@@ -104,7 +111,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		staticruntime "On"  -- Ensure consistency with Nitro
 		systemversion "latest"
 
@@ -115,13 +121,13 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "NG_DEBUG"
-		buildoptions "/MDd"
-		symbols "On"
+		runtime "Debug"
+		symbols "on"
 	filter "configurations:Release"
 		defines "NG_RELEASE"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 	filter "configurations:Dist"
 		defines "NG_DIST"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"

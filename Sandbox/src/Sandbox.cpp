@@ -1,5 +1,7 @@
 #include <Nitro.h>
 
+#include <imgui.h>
+
 class ExampleLayer : public Nitro::Layer
 {
 public:
@@ -17,6 +19,13 @@ public:
 	void OnEvent(Nitro::Event& event) override
 	{
 
+	}
+
+	void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello, World!");
+		ImGui::End();
 	}
 
 };

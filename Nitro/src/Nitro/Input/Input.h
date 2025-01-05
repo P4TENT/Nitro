@@ -4,7 +4,7 @@
 #include "Nitro/Core.h"
 
 namespace Nitro {
-	class NITRO_API Input {
+	class Input {
 	private:
 		static Input* s_Instance;
 

@@ -5,7 +5,7 @@
 #include "spdlog/fmt/ostr.h"
 
 namespace Nitro {
-	class NITRO_API Log
+	class Log
 	{
 	private:
 		static std::shared_ptr<spdlog::logger> s_CoreLogger;

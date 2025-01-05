@@ -11,7 +11,7 @@
 
 namespace Nitro {
 
-	class NITRO_API Application
+	class Application
 	{
 	public:
 		Application();

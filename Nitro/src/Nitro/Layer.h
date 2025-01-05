@@ -4,7 +4,7 @@
 #include "Events/Event.h"
 
 namespace Nitro {
-	class NITRO_API Layer
+	class Layer
 	{
 	private:
 		std::string m_Name;

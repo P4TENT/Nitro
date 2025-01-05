@@ -4,7 +4,7 @@
 
 namespace Nitro {
 	
-	class NITRO_API MouseMovedEvent : public Event
+	class MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -23,7 +23,7 @@ namespace Nitro {
 		float m_MouseX, m_MouseY;
 	};
 	
-	class NITRO_API MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -42,7 +42,7 @@ namespace Nitro {
 		float m_XOffset, m_YOffset;
 	};
 	
-	class NITRO_API MouseButtonEvent : public Event
+	class MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -53,7 +53,7 @@ namespace Nitro {
 		int m_Button;
 	};
 
-	class NITRO_API MouseButtonPressedEvent : public MouseButtonEvent
+	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -68,7 +68,7 @@ namespace Nitro {
 		EVENT_CLASS_TYPE(MBPressed)
 	};
 
-	class NITRO_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

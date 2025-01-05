@@ -15,7 +15,8 @@ namespace Nitro {
 			: Title(title), Width(width), Height(height) {}
 	};
 	
-	class NITRO_API Window {
+	class Window 
+	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
 

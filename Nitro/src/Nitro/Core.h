@@ -7,11 +7,17 @@
 #define NG_ENABLE_ASSERTS
 
 #ifdef NG_PLATFORM_WINDOWS
+
+#if NG_DYNAMIC_LINK
 	#ifdef NG_BUILD_DLL
 		#define NITRO_API __declspec(dllexport)
 	#else 
 		#define NITRO_API __declspec(dllimport)
 	#endif
+#else
+	#define NITRO_API
+#endif
+
 #else 
 	#error Nitro only supports Windows!!
 #endif

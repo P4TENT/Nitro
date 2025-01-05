@@ -4,7 +4,7 @@
 
 namespace Nitro {
 
-	class NITRO_API WindowResizeEvent : public Event {
+	class WindowResizeEvent : public Event {
 	private:
 		NGUINT m_width, m_height;
 	public:
@@ -24,7 +24,7 @@ namespace Nitro {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class NITRO_API WindowCloseEvent : public Event {
+	class WindowCloseEvent : public Event {
 	public:
 		WindowCloseEvent() {}
 
@@ -32,7 +32,7 @@ namespace Nitro {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class NITRO_API AppTickEvent : public Event {
+	class AppTickEvent : public Event {
 	public:
 		AppTickEvent() {}
 
@@ -40,7 +40,7 @@ namespace Nitro {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class NITRO_API AppUpdateEvent : public Event {
+	class AppUpdateEvent : public Event {
 	public:
 		AppUpdateEvent() {}
 
@@ -48,7 +48,7 @@ namespace Nitro {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class NITRO_API AppRenderEvent : public Event
+	class AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {}

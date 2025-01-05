@@ -3,7 +3,7 @@
 #include "Layer.h"
 
 namespace Nitro {
-	class NITRO_API LayerStack 
+	class LayerStack 
 	{
 	private:
 		std::vector<Layer*> m_Layers;
