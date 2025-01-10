@@ -11,29 +11,6 @@ namespace Nitro {
 
 	Application* Application::s_Instance = nullptr;
 
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-		case ShaderDataType::Bool:		return GL_BOOL;
-
-		case ShaderDataType::Int:		return GL_INT;
-		case ShaderDataType::Int2:		return GL_INT;
-		case ShaderDataType::Int3:		return GL_INT;
-		case ShaderDataType::Int4:		return GL_INT;
-
-		case ShaderDataType::Float:		return GL_FLOAT;
-		case ShaderDataType::Float2:	return GL_FLOAT;
-		case ShaderDataType::Float3:	return GL_FLOAT;
-		case ShaderDataType::Float4:	return GL_FLOAT;
-
-		case ShaderDataType::Mat3:		return GL_FLOAT;
-		case ShaderDataType::Mat4:		return GL_FLOAT;
-		}
-
-		NG_CORE_ASSERT(false, "Unknown ShaderDataType!");
-	}
-
 	Application::Application()
 	{
 		NG_CORE_ASSERT(!s_Instance, "Application already exists!");
@@ -53,33 +30,18 @@ namespace Nitro {
 		};
 		uint32_t indices[3] = { 0, 1, 2 };
 
-		glGenVertexArrays(1, &VAO);
-		glBindVertexArray(VAO);
-
 		m_VertexBuffer.reset(VertexBuffer::Create(verts, sizeof(verts)));
+		m_VertexArray.reset(VertexArray::Create());
 
 		BufferLayout layout = {
 			{ShaderDataType::Float3, "a_Position"}
 		};
 
 		m_VertexBuffer->SetLayout(layout);
-
-		int index = 0;
-		for (const auto& element : m_VertexBuffer->GetLayout())
-		{
-		glEnableVertexAttribArray(index);
-		
-		glVertexAttribPointer(index, 
-			element.GetComponentCount(), 
-			ShaderDataTypeToOpenGLBaseType(element.Type), 
-			element.Normalized ? GL_TRUE : GL_FALSE, 
-			layout.GetStride(), 
-			(const void*)element.Offset);
-
-		index++;
-		}
+		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
@@ -152,7 +114,7 @@ void main()
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			m_Shader->Bind();
-			glBindVertexArray(VAO);
+			m_VertexArray->Bind();
 			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
