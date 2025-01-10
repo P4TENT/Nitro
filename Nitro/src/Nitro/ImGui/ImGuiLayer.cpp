@@ -24,34 +24,52 @@ namespace Nitro {
 
 	void ImGuiLayer::OnAttach()
 	{
+		// Initialize ImGui
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+		// Enable ImGui features
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
-		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
-		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 
-		// Setup Dear ImGui style
-		ImGui::StyleColorsDark();
-		//ImGui::StyleColorsClassic();
+		// Setup Dear ImGui style (Make it visually appealing)
+		ImGui::StyleColorsDark(); // Dark theme
+		//ImGui::StyleColorsClassic(); // Uncomment this if you prefer the classic theme
 
-		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
+		style.WindowRounding = 10.0f; // Rounded window corners
+		style.FrameRounding = 5.0f; // Rounded frames
+		style.GrabRounding = 5.0f; // Rounded sliders and grab handles
+		style.PopupRounding = 10.0f; // Rounded popups
+		style.ScrollbarRounding = 5.0f; // Rounded scrollbars
+
+		// Color Scheme: Make the colors more vibrant and smooth
+		style.Colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f); // Dark window background
+		style.Colors[ImGuiCol_FrameBg] = ImVec4(0.30f, 0.30f, 0.30f, 1.00f); // Darker frame background
+		style.Colors[ImGuiCol_Button] = ImVec4(0.40f, 0.60f, 0.80f, 1.00f); // Light blue button color
+		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.50f, 0.70f, 1.00f, 1.00f); // Hovered button color
+		style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.30f, 0.50f, 0.80f, 1.00f); // Active button color
+
+		// Customize borders and separator appearance
+		style.Colors[ImGuiCol_Border] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f); // Lighter border
+		style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f); // Border shadow transparency
+
+		// Multi-Viewport adjustments for platform windows (if enabled)
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
-			style.WindowRounding = 0.0f;
-			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+			style.WindowRounding = 10.0f;
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f; // Full opacity for the platform windows
 		}
 
+		// Setup Platform/Renderer bindings (GLFW and OpenGL)
 		Application& app = Application::Get();
 		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
-
-		// Setup Platform/Renderer bindings
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
+
 	}
 
 	void ImGuiLayer::OnDetach()

@@ -111,7 +111,7 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		staticruntime "On"  -- Ensure consistency with Nitro
+		staticruntime "On"  
 		systemversion "latest"
 
 		defines

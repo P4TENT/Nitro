@@ -74,6 +74,12 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\ngpch.h" />
+    <ClInclude Include="src\Nitro\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Nitro\Renderer\Shader.h" />
+    <ClInclude Include="src\Nitro\Renderer\Buffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Nitro\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Nitro\Application.cpp">
@@ -101,5 +107,10 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\ngpch.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Nitro\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Nitro\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Nitro\Renderer\Renderer.cpp" />
   </ItemGroup>
 </Project>

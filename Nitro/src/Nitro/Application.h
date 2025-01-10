@@ -9,6 +9,9 @@
 
 #include "Nitro/ImGui/ImGuiLayer.h"
 
+#include "Nitro/Renderer/Shader.h"
+#include "Platform/OpenGL/OpenGLBuffer.h"
+
 namespace Nitro {
 
 	class Application
@@ -34,6 +37,13 @@ namespace Nitro {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		unsigned int VAO;
+
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+
+		std::unique_ptr<Shader> m_Shader;
 	private:
 		static Application* s_Instance;
 	};
