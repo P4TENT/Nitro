@@ -3,7 +3,7 @@
 
 #include "Log.h"
 
-#include <glad/glad.h>
+#include "Renderer/Renderer.h"
 
 namespace Nitro {
 
@@ -42,8 +42,6 @@ namespace Nitro {
 
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
-
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 		std::string vertexSource = R"(
 #version 330 core
@@ -110,12 +108,22 @@ void main()
 	{
 		while (m_Running)
 		{
-			glClearColor(0.2f, 0.2f, 0.2f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			//glClearColor(0.2f, 0.2f, 0.2f, 1);
+			//glClear(GL_COLOR_BUFFER_BIT);
+
+			RendererCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1 });
+			RendererCommand::Clear();
+
+			Renderer::BeginScene();
 
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+
+			Renderer::EndScene();
+
+			//m_Shader->Bind();
+			//m_VertexArray->Bind();
+			//glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

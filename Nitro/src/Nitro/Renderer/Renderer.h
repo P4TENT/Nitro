@@ -1,18 +1,19 @@
 #pragma once
 
-namespace Nitro {
+#include "RendererCommand.h"
+#include "RenderAPI.h"
 
-	enum class RendererAPI
-	{
-		None = 0, OpenGL = 1
-	};
+namespace Nitro {
 
 	class Renderer 
 	{
 	public:
-		inline static RendererAPI GetAPI() { return s_RendererAPI; }
+		static void BeginScene();
+		static void EndScene();
 
-		static RendererAPI s_RendererAPI;
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+		inline static RenderAPI::API GetAPI() { return RenderAPI::GetAPI(); }
 	};
 
 }

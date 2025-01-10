@@ -9,8 +9,8 @@ namespace Nitro {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:			NG_CORE_ASSERT(false, "'RenderAPI::None' is currently not supported!");
-		case RendererAPI::OpenGL:		return new OpenGLVertexBuffer(vertices, size);
+		case RenderAPI::API::None:			NG_CORE_ASSERT(false, "'RenderAPI::None' is currently not supported!");
+		case RenderAPI::API::OpenGL:		return new OpenGLVertexBuffer(vertices, size);
 
 		}
 
@@ -22,8 +22,8 @@ namespace Nitro {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:			NG_CORE_ASSERT(false, "'RenderAPI::None' is currently not supported!");
-		case RendererAPI::OpenGL:		return new OpenGLIndexBuffer(indices, count);
+		case RenderAPI::API::None:			NG_CORE_ASSERT(false, "'RenderAPI::None' is currently not supported!");
+		case RenderAPI::API::OpenGL:		return new OpenGLIndexBuffer(indices, count);
 
 		}
 

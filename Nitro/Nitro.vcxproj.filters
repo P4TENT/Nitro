@@ -82,6 +82,9 @@
     <ClInclude Include="src\Nitro\Renderer\Renderer.h" />
     <ClInclude Include="src\Nitro\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\Nitro\Renderer\RenderAPI.h" />
+    <ClInclude Include="src\Nitro\Renderer\RendererCommand.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Nitro\Application.cpp">
@@ -116,5 +119,8 @@
     <ClCompile Include="src\Nitro\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Nitro\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Nitro\Renderer\RenderAPI.cpp" />
+    <ClCompile Include="src\Nitro\Renderer\RendererCommand.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
   </ItemGroup>
 </Project>
