@@ -21,7 +21,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<Nitro::VertexBuffer> vertexBuffer;
+		Nitro::Ref<Nitro::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Nitro::VertexBuffer::Create(vertices, sizeof(vertices)));
 		Nitro::BufferLayout layout = {
 			{ Nitro::ShaderDataType::Float3, "a_Position" },
@@ -31,7 +31,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Nitro::IndexBuffer> indexBuffer;
+		Nitro::Ref<Nitro::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Nitro::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -44,7 +44,7 @@ public:
 			-0.5f,  0.5f, 0.0f
 		};
 
-		std::shared_ptr<Nitro::VertexBuffer> squareVB;
+		Nitro::Ref<Nitro::VertexBuffer> squareVB;
 		squareVB.reset(Nitro::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
 			{ Nitro::ShaderDataType::Float3, "a_Position" }
@@ -52,7 +52,7 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Nitro::IndexBuffer> squareIB;
+		Nitro::Ref<Nitro::IndexBuffer> squareIB;
 		squareIB.reset(Nitro::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -130,19 +130,19 @@ public:
 
 	void OnUpdate(Nitro::Timestep deltaT) override
 	{
-		if (Nitro::Input::IsKeyPressed(N_KEY_LEFT))
+		if (Nitro::Input::IsKeyPressed(N_KEY_A))
 			m_CameraPosition.x -= m_CameraMoveSpeed * deltaT;
-		else if (Nitro::Input::IsKeyPressed(N_KEY_RIGHT))
+		else if (Nitro::Input::IsKeyPressed(N_KEY_D))
 			m_CameraPosition.x += m_CameraMoveSpeed * deltaT;
 
-		if (Nitro::Input::IsKeyPressed(N_KEY_UP))
+		if (Nitro::Input::IsKeyPressed(N_KEY_W))
 			m_CameraPosition.y += m_CameraMoveSpeed * deltaT;
-		else if (Nitro::Input::IsKeyPressed(N_KEY_DOWN))
+		else if (Nitro::Input::IsKeyPressed(N_KEY_S))
 			m_CameraPosition.y -= m_CameraMoveSpeed * deltaT;
 
-		if (Nitro::Input::IsKeyPressed(N_KEY_A))
+		if (Nitro::Input::IsKeyPressed(N_KEY_Q))
 			m_CameraRotation += m_CameraRotationSpeed * deltaT;
-		if (Nitro::Input::IsKeyPressed(N_KEY_D))
+		if (Nitro::Input::IsKeyPressed(N_KEY_E))
 			m_CameraRotation -= m_CameraRotationSpeed * deltaT;
 
 		Nitro::RendererCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
@@ -187,11 +187,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<Nitro::Shader> m_Shader;
-	std::shared_ptr<Nitro::VertexArray> m_VertexArray;
+	Nitro::Ref<Nitro::Shader> m_Shader;
+	Nitro::Ref<Nitro::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Nitro::Shader> m_ColorShader;
-	std::shared_ptr<Nitro::VertexArray> m_SquareVA;
+	Nitro::Ref<Nitro::Shader> m_ColorShader;
+	Nitro::Ref<Nitro::VertexArray> m_SquareVA;
 
 	Nitro::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
