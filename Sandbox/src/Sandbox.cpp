@@ -53,23 +53,25 @@ in vec3 v_Position;
 
 void main()
 {
-	color = vec4(v_Position * 0.5 + 0.3, 1.0);
+	color = vec4(v_Position * 0.5 + 0.5, 1.0);
 }
 )";
 
 		m_Shader.reset(new Nitro::Shader(vertexSource, fragmentSource));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Nitro::Timestep deltaT) override
 	{
+		NG_CLIENT_INFO("{0}", deltaT.GetMilliseconds());
+
 		if (Nitro::Input::IsKeyPressed(N_KEY_A))
-			m_CameraPos.x -= 0.05f;
+			m_CameraPos.x -= 1.f * deltaT;
 		if (Nitro::Input::IsKeyPressed(N_KEY_D))
-			m_CameraPos.x += 0.05f;
+			m_CameraPos.x += 1.f * deltaT;
 		if (Nitro::Input::IsKeyPressed(N_KEY_S))
-			m_CameraPos.y -= 0.05f;
+			m_CameraPos.y -= 1.f * deltaT;
 		if (Nitro::Input::IsKeyPressed(N_KEY_W))
-			m_CameraPos.y += 0.05f;
+			m_CameraPos.y += 1.f * deltaT;
 
 		Nitro::RendererCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1 });
 		Nitro::RendererCommand::Clear();

@@ -148,7 +148,8 @@
   <ItemGroup>
     <ClInclude Include="src\Nitro.h" />
     <ClInclude Include="src\Nitro\Application.h" />
-    <ClInclude Include="src\Nitro\Core.h" />
+    <ClInclude Include="src\Nitro\Core\Core.h" />
+    <ClInclude Include="src\Nitro\Core\Timestep.h" />
     <ClInclude Include="src\Nitro\EntryPoint.h" />
     <ClInclude Include="src\Nitro\Events\AppEvent.h" />
     <ClInclude Include="src\Nitro\Events\Event.h" />

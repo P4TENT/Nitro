@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Nitro/Core/Timestep.h"
+
 #include "Nitro/Application.h"
 #include "Nitro/Layer.h"
 #include "Nitro/Log.h"

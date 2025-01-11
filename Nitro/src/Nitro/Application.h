@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Core.h"
+#include "Core/Core.h"
+#include "Core/Timestep.h"
 
 #include "Window.h"
 #include "Nitro/LayerStack.h"
@@ -36,10 +37,13 @@ namespace Nitro {
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
+	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.f;
+		//Timestep m_Timestep;
 
 	private:
 		static Application* s_Instance;

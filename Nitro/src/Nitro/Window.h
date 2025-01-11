@@ -2,7 +2,7 @@
 
 #include "ngpch.h"
 
-#include "Core.h"
+#include "Core/Core.h"
 #include "Events/Event.h"
 
 namespace Nitro {

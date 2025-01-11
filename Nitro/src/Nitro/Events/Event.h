@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../ngpch.h"
-#include "../Core.h"
+#include "../Core/Core.h"
 
 namespace Nitro {
 	enum class EventType {

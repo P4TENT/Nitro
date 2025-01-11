@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ngpch.h"
-#include "Nitro/Core.h"
+#include "Nitro/Core/Core.h"
 
 namespace Nitro {
 	class Input {
