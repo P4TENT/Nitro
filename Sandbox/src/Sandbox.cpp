@@ -1,6 +1,9 @@
 #include <Nitro.h>
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <imgui.h>
 
@@ -88,7 +91,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(new Nitro::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(Nitro::Shader::Create(vertexSrc, fragmentSrc));
 
 		std::string ColorShaderVertexSrc = R"(
 			#version 330 core
@@ -122,7 +125,7 @@ public:
 			}
 		)";
 
-		m_ColorShader.reset(new Nitro::Shader(ColorShaderVertexSrc, ColorShaderFragmentSrc));
+		m_ColorShader.reset(Nitro::Shader::Create(ColorShaderVertexSrc, ColorShaderFragmentSrc));
 	}
 
 	void OnUpdate(Nitro::Timestep deltaT) override
@@ -152,8 +155,8 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		glm::vec4 RedColor(0.8f, 0.2f, 0.2f, 1.f);
-		glm::vec4 BlueColor(0.2f, 0.2f, 0.8f, 1.f);
+		std::dynamic_pointer_cast<Nitro::OpenGLShader>(m_ColorShader)->Bind();
+		std::dynamic_pointer_cast<Nitro::OpenGLShader>(m_ColorShader)->UploadUniformFloat4("u_Color", m_SquareColor);
 
 		for (int y = 0; y < 20; y++)
 		{
@@ -161,10 +164,6 @@ public:
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				if (x % 2 == 0)
-					m_ColorShader->UploadUniformFloat4("u_Color", RedColor);
-				else
-					m_ColorShader->UploadUniformFloat4("u_Color", BlueColor);
 				Nitro::Renderer::Submit(m_SquareVA, m_ColorShader, transform);
 			}
 		}
@@ -176,6 +175,10 @@ public:
 
 	void OnImGuiRender() override
 	{
+		// Color Test With ImGui!
+		ImGui::Begin("Test Settings");
+		ImGui::ColorEdit4("Square Color: ", glm::value_ptr(m_SquareColor));
+		ImGui::End();
 
 	}
 
@@ -196,6 +199,8 @@ private:
 
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotationSpeed = 180.0f;
+
+	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.f };
 };
 
 class Sandbox : public Nitro::Application
