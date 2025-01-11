@@ -1,84 +1,173 @@
 #include <Nitro.h>
 
+#include <glm/gtc/matrix_transform.hpp>
+
 #include <imgui.h>
 
 class ExampleLayer : public Nitro::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPos(glm::vec3(0.f))
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(glm::vec3(0.f))
 	{
-		float verts[3 * 3] = {
-			-0.5f, -0.5f, 0.f,
-			 0.5f, -0.5f, 0.f,
-			 0.0f,  0.5f, 0.f
-		};
-		uint32_t indices[3] = { 0, 1, 2 };
-
-		m_VertexBuffer.reset(Nitro::VertexBuffer::Create(verts, sizeof(verts)));
 		m_VertexArray.reset(Nitro::VertexArray::Create());
 
-		Nitro::BufferLayout layout = {
-			{Nitro::ShaderDataType::Float3, "a_Position"}
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		m_VertexBuffer->SetLayout(layout);
-		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+		std::shared_ptr<Nitro::VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(Nitro::VertexBuffer::Create(vertices, sizeof(vertices)));
+		Nitro::BufferLayout layout = {
+			{ Nitro::ShaderDataType::Float3, "a_Position" },
+			{ Nitro::ShaderDataType::Float4, "a_Color" }
+		};
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-		m_IndexBuffer.reset(Nitro::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+		uint32_t indices[3] = { 0, 1, 2 };
+		std::shared_ptr<Nitro::IndexBuffer> indexBuffer;
+		indexBuffer.reset(Nitro::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		std::string vertexSource = R"(
-#version 330 core
+		m_SquareVA.reset(Nitro::VertexArray::Create());
 
-layout(location = 0) in vec3 a_Position;
+		float squareVertices[3 * 4] = {
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
+		};
 
-uniform mat4 u_ViewProjection;
+		std::shared_ptr<Nitro::VertexBuffer> squareVB;
+		squareVB.reset(Nitro::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB->SetLayout({
+			{ Nitro::ShaderDataType::Float3, "a_Position" }
+			});
+		m_SquareVA->AddVertexBuffer(squareVB);
 
-out vec3 v_Position;
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<Nitro::IndexBuffer> squareIB;
+		squareIB.reset(Nitro::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		m_SquareVA->SetIndexBuffer(squareIB);
 
-void main()
-{
-	gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
-	v_Position = a_Position;
-}
-)";
+		std::string vertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
 
-		std::string fragmentSource = R"(
-#version 330 core
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
-layout(location = 0) out vec4 color;
+			out vec3 v_Position;
+			out vec4 v_Color;
 
-in vec3 v_Position;
+			void main()
+			{
+				v_Position = a_Position;
+				v_Color = a_Color;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
 
-void main()
-{
-	color = vec4(v_Position * 0.5 + 0.5, 1.0);
-}
-)";
+		std::string fragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
 
-		m_Shader.reset(new Nitro::Shader(vertexSource, fragmentSource));
+			in vec3 v_Position;
+			in vec4 v_Color;
+
+			void main()
+			{
+				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
+			}
+		)";
+
+		m_Shader.reset(new Nitro::Shader(vertexSrc, fragmentSrc));
+
+		std::string ColorShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec3 v_Position;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string ColorShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			uniform vec4 u_Color;
+
+			void main()
+			{
+				color = u_Color;
+			}
+		)";
+
+		m_ColorShader.reset(new Nitro::Shader(ColorShaderVertexSrc, ColorShaderFragmentSrc));
 	}
 
 	void OnUpdate(Nitro::Timestep deltaT) override
 	{
-		NG_CLIENT_INFO("{0}", deltaT.GetMilliseconds());
+		if (Nitro::Input::IsKeyPressed(N_KEY_LEFT))
+			m_CameraPosition.x -= m_CameraMoveSpeed * deltaT;
+		else if (Nitro::Input::IsKeyPressed(N_KEY_RIGHT))
+			m_CameraPosition.x += m_CameraMoveSpeed * deltaT;
+
+		if (Nitro::Input::IsKeyPressed(N_KEY_UP))
+			m_CameraPosition.y += m_CameraMoveSpeed * deltaT;
+		else if (Nitro::Input::IsKeyPressed(N_KEY_DOWN))
+			m_CameraPosition.y -= m_CameraMoveSpeed * deltaT;
 
 		if (Nitro::Input::IsKeyPressed(N_KEY_A))
-			m_CameraPos.x -= 1.f * deltaT;
+			m_CameraRotation += m_CameraRotationSpeed * deltaT;
 		if (Nitro::Input::IsKeyPressed(N_KEY_D))
-			m_CameraPos.x += 1.f * deltaT;
-		if (Nitro::Input::IsKeyPressed(N_KEY_S))
-			m_CameraPos.y -= 1.f * deltaT;
-		if (Nitro::Input::IsKeyPressed(N_KEY_W))
-			m_CameraPos.y += 1.f * deltaT;
+			m_CameraRotation -= m_CameraRotationSpeed * deltaT;
 
-		Nitro::RendererCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1 });
+		Nitro::RendererCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Nitro::RendererCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPos);
+		m_Camera.SetPosition(m_CameraPosition);
+		m_Camera.SetRotation(m_CameraRotation);
 
 		Nitro::Renderer::BeginScene(m_Camera);
+
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		glm::vec4 RedColor(0.8f, 0.2f, 0.2f, 1.f);
+		glm::vec4 BlueColor(0.2f, 0.2f, 0.8f, 1.f);
+
+		for (int y = 0; y < 20; y++)
+		{
+			for (int x = 0; x < 20; x++)
+			{
+				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				if (x % 2 == 0)
+					m_ColorShader->UploadUniformFloat4("u_Color", RedColor);
+				else
+					m_ColorShader->UploadUniformFloat4("u_Color", BlueColor);
+				Nitro::Renderer::Submit(m_SquareVA, m_ColorShader, transform);
+			}
+		}
 
 		Nitro::Renderer::Submit(m_VertexArray, m_Shader);
 
@@ -95,15 +184,18 @@ void main()
 	}
 
 private:
-	std::shared_ptr<Nitro::VertexBuffer> m_VertexBuffer;
-	std::shared_ptr<Nitro::IndexBuffer> m_IndexBuffer;
-	std::shared_ptr<Nitro::VertexArray> m_VertexArray;
 	std::shared_ptr<Nitro::Shader> m_Shader;
+	std::shared_ptr<Nitro::VertexArray> m_VertexArray;
+
+	std::shared_ptr<Nitro::Shader> m_ColorShader;
+	std::shared_ptr<Nitro::VertexArray> m_SquareVA;
 
 	Nitro::OrthographicCamera m_Camera;
+	glm::vec3 m_CameraPosition;
+	float m_CameraMoveSpeed = 5.0f;
 
-	glm::vec3 m_CameraPos;
-
+	float m_CameraRotation = 0.0f;
+	float m_CameraRotationSpeed = 180.0f;
 };
 
 class Sandbox : public Nitro::Application
