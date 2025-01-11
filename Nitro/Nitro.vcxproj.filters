@@ -85,6 +85,7 @@
     <ClInclude Include="src\Nitro\Renderer\RenderAPI.h" />
     <ClInclude Include="src\Nitro\Renderer\RendererCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Nitro\Renderer\OrthographicCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Nitro\Application.cpp">
@@ -122,5 +123,6 @@
     <ClCompile Include="src\Nitro\Renderer\RenderAPI.cpp" />
     <ClCompile Include="src\Nitro\Renderer\RendererCommand.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Nitro\Renderer\OrthographicCamera.cpp" />
   </ItemGroup>
 </Project>

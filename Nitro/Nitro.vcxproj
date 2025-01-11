@@ -163,6 +163,7 @@
     <ClInclude Include="src\Nitro\Log.h" />
     <ClInclude Include="src\Nitro\Renderer\Buffer.h" />
     <ClInclude Include="src\Nitro\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Nitro\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Nitro\Renderer\Renderer.h" />
     <ClInclude Include="src\Nitro\Renderer\RenderAPI.h" />
     <ClInclude Include="src\Nitro\Renderer\RendererCommand.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="src\Nitro\LayerStack.cpp" />
     <ClCompile Include="src\Nitro\Log.cpp" />
     <ClCompile Include="src\Nitro\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Nitro\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Nitro\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Nitro\Renderer\RenderAPI.cpp" />
     <ClCompile Include="src\Nitro\Renderer\RendererCommand.cpp" />

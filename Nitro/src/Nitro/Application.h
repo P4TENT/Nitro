@@ -13,6 +13,8 @@
 #include "Platform/OpenGL/OpenGLBuffer.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
+#include "Nitro/Renderer/OrthographicCamera.h"
+
 namespace Nitro {
 
 	class Application
@@ -43,6 +45,8 @@ namespace Nitro {
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 		std::shared_ptr<VertexArray> m_VertexArray;
 		std::shared_ptr<Shader> m_Shader;
+
+		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};
