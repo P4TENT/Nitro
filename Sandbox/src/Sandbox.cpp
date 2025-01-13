@@ -37,17 +37,18 @@ public:
 
 		m_SquareVA.reset(Nitro::VertexArray::Create());
 
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		Nitro::Ref<Nitro::VertexBuffer> squareVB;
 		squareVB.reset(Nitro::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
-			{ Nitro::ShaderDataType::Float3, "a_Position" }
+			{ Nitro::ShaderDataType::Float3, "a_Position" },
+			{ Nitro::ShaderDataType::Float2, "a_TexCoord" }
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
@@ -126,6 +127,48 @@ public:
 		)";
 
 		m_ColorShader.reset(Nitro::Shader::Create(ColorShaderVertexSrc, ColorShaderFragmentSrc));
+
+		std::string TexShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string TexShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TexShader.reset(Nitro::Shader::Create(TexShaderVertexSrc, TexShaderFragmentSrc));
+
+		NG_CLIENT_INFO("INFO");
+
+		m_Texture2d = Nitro::Texture2D::Create("D:\\Code\\C++\\Nitro\\Sandbox\\assets\\textures\\2.png");
+
+		std::dynamic_pointer_cast<Nitro::OpenGLShader>(m_TexShader)->Bind();	
+		std::dynamic_pointer_cast<Nitro::OpenGLShader>(m_TexShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Nitro::Timestep deltaT) override
@@ -168,7 +211,11 @@ public:
 			}
 		}
 
-		Nitro::Renderer::Submit(m_VertexArray, m_Shader);
+		m_Texture2d->Bind();
+		Nitro::Renderer::Submit(m_SquareVA, m_TexShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		// Triangle Submit
+		//Nitro::Renderer::Submit(m_VertexArray, m_Shader);
 
 		Nitro::Renderer::EndScene();
 	}
@@ -190,8 +237,10 @@ private:
 	Nitro::Ref<Nitro::Shader> m_Shader;
 	Nitro::Ref<Nitro::VertexArray> m_VertexArray;
 
-	Nitro::Ref<Nitro::Shader> m_ColorShader;
+	Nitro::Ref<Nitro::Shader> m_ColorShader, m_TexShader;
 	Nitro::Ref<Nitro::VertexArray> m_SquareVA;
+
+	Nitro::Ref<Nitro::Texture2D> m_Texture2d;
 
 	Nitro::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

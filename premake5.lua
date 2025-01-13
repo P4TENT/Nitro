@@ -15,6 +15,7 @@ IncludeDir["GLFW"] = "Nitro/vendor/GLFW/include"
 IncludeDir["Glad"] = "Nitro/vendor/Glad/include"
 IncludeDir["ImGui"] = "Nitro/vendor/imgui"
 IncludeDir["glm"] = "Nitro/vendor/glm"
+IncludeDir["stb_image"] = "Nitro/vendor/stb_image"
 
 include "Nitro/vendor/GLFW"
 include "Nitro/vendor/Glad"
@@ -35,7 +36,9 @@ project "Nitro"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp"
 	}
 
 	defines 
@@ -50,7 +53,8 @@ project "Nitro"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 	links 
 	{

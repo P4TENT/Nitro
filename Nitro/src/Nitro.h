@@ -23,6 +23,8 @@
 #include "Nitro/Renderer/VertexArray.h"
 
 #include "Nitro/Renderer/OrthographicCamera.h"
+
+#include "Nitro/Renderer/Texture.h"
 //////////////////////////////
 // ------- RENDERER ------- //
 //////////////////////////////
