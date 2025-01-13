@@ -9,7 +9,7 @@ namespace Nitro {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RenderAPI::API::None:			NG_CORE_ASSERT(false, "'RenderAPI::None' is currently not supported!");
+		case RenderAPI::API::None:			NG_CORE_ASSERT(false, "Nitro::VertexArray::Create(): 'RenderAPI::None' is currently not supported!");
 		case RenderAPI::API::OpenGL:		return new OpenGLVertexArray();
 
 		}

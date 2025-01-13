@@ -15,12 +15,14 @@ namespace Nitro {
 
 	Application::Application()
 	{
-		NG_CORE_ASSERT(!s_Instance, "Application already exists!");
+		NG_CORE_ASSERT(!s_Instance, "Nitro::Application::Application(): Application already exists!");
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 		m_Window->SetVSync(1);
+
+		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

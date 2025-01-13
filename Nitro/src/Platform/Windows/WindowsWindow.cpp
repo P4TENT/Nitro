@@ -12,7 +12,7 @@ namespace Nitro {
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		NG_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
+		NG_CORE_ERROR("Nitro::GLFWErrorCallback(): GLFW Error ({0}): {1}", error, description);
 	}
 
 	Window* Window::Create(const WindowProps& props)

@@ -24,7 +24,7 @@ namespace Nitro {
 		case ShaderDataType::Mat4:		return GL_FLOAT;
 		}
 
-		NG_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		NG_CORE_ASSERT(false, "Nitro::ShaderDataTypeToOpenGLBaseType(): Unknown ShaderDataType!");
 	}
 
 

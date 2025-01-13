@@ -33,8 +33,8 @@ namespace Nitro {
 			// We don't need the shader anymore.
 			glDeleteShader(vertexShader);
 
-			NG_CORE_ERROR("{0}", infoLog.data());
-			NG_CORE_ASSERT(false, "Vertex shader compilation failure!");
+			NG_CORE_ERROR("Nitro::OpenGLShader::OpenGLShader(): {0}", infoLog.data());
+			NG_CORE_ASSERT(false, "Nitro::OpenGLShader::OpenGLShader(): Vertex shader compilation failure!");
 			return;
 		}
 
@@ -64,8 +64,8 @@ namespace Nitro {
 			// Either of them. Don't leak shaders.
 			glDeleteShader(vertexShader);
 
-			NG_CORE_ERROR("{0}", infoLog.data());
-			NG_CORE_ASSERT(false, "Fragment shader compilation failure!");
+			NG_CORE_ERROR("Nitro::OpenGLShader::OpenGLShader(): {0}", infoLog.data());
+			NG_CORE_ASSERT(false, "Nitro::OpenGLShader::OpenGLShader(): Fragment shader compilation failure!");
 			return;
 		}
 
@@ -99,8 +99,8 @@ namespace Nitro {
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
 
-			NG_CORE_ERROR("{0}", infoLog.data());
-			NG_CORE_ASSERT(false, "Shader link failed!");
+			NG_CORE_ERROR("Nitro::OpenGLShader::OpenGLShader(): {0}", infoLog.data());
+			NG_CORE_ASSERT(false, "Nitro::OpenGLShader::OpenGLShader(): Shader link failed!");
 			return;
 		}
 

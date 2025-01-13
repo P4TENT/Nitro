@@ -26,4 +26,9 @@ namespace Nitro {
 		RendererCommand::DrawIndexed(vertexArray);
 	}
 
+	void Renderer::Init()
+	{
+		RendererCommand::Init();
+	}
+
 }

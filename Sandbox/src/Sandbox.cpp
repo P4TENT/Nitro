@@ -166,6 +166,7 @@ public:
 		NG_CLIENT_INFO("INFO");
 
 		m_Texture2d = Nitro::Texture2D::Create("D:\\Code\\C++\\Nitro\\Sandbox\\assets\\textures\\2.png");
+		m_TransparentTex = Nitro::Texture2D::Create("D:\\Code\\C++\\Nitro\\Sandbox\\assets\\textures\\transparent.png");
 
 		std::dynamic_pointer_cast<Nitro::OpenGLShader>(m_TexShader)->Bind();	
 		std::dynamic_pointer_cast<Nitro::OpenGLShader>(m_TexShader)->UploadUniformInt("u_Texture", 0);
@@ -214,6 +215,9 @@ public:
 		m_Texture2d->Bind();
 		Nitro::Renderer::Submit(m_SquareVA, m_TexShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+		m_TransparentTex->Bind();
+		Nitro::Renderer::Submit(m_SquareVA, m_TexShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.f)));
+
 		// Triangle Submit
 		//Nitro::Renderer::Submit(m_VertexArray, m_Shader);
 
@@ -241,6 +245,7 @@ private:
 	Nitro::Ref<Nitro::VertexArray> m_SquareVA;
 
 	Nitro::Ref<Nitro::Texture2D> m_Texture2d;
+	Nitro::Ref<Nitro::Texture2D> m_TransparentTex;
 
 	Nitro::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
