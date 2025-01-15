@@ -92,7 +92,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(Nitro::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Nitro::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
 		std::string ColorShaderVertexSrc = R"(
 			#version 330 core
@@ -126,7 +126,7 @@ public:
 			}
 		)";
 
-		m_ColorShader.reset(Nitro::Shader::Create(ColorShaderVertexSrc, ColorShaderFragmentSrc));
+		m_ColorShader = Nitro::Shader::Create("FlatColor", ColorShaderVertexSrc, ColorShaderFragmentSrc);
 
 		std::string TexShaderVertexSrc = R"(
 			#version 330 core
@@ -161,15 +161,15 @@ public:
 			}
 		)";
 
-		m_TexShader.reset(Nitro::Shader::Create(TexShaderVertexSrc, TexShaderFragmentSrc));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		NG_CLIENT_INFO("INFO");
 
 		m_Texture2d = Nitro::Texture2D::Create("D:\\Code\\C++\\Nitro\\Sandbox\\assets\\textures\\2.png");
 		m_TransparentTex = Nitro::Texture2D::Create("D:\\Code\\C++\\Nitro\\Sandbox\\assets\\textures\\transparent.png");
 
-		std::dynamic_pointer_cast<Nitro::OpenGLShader>(m_TexShader)->Bind();	
-		std::dynamic_pointer_cast<Nitro::OpenGLShader>(m_TexShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Nitro::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Nitro::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Nitro::Timestep deltaT) override
@@ -212,11 +212,13 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture2d->Bind();
-		Nitro::Renderer::Submit(m_SquareVA, m_TexShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Nitro::Renderer::Submit(m_SquareVA, textureShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_TransparentTex->Bind();
-		Nitro::Renderer::Submit(m_SquareVA, m_TexShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.f)));
+		Nitro::Renderer::Submit(m_SquareVA, textureShader, glm::scale(glm::mat4(1.0f), glm::vec3(1.f)));
 
 		// Triangle Submit
 		//Nitro::Renderer::Submit(m_VertexArray, m_Shader);
@@ -238,14 +240,14 @@ public:
 	}
 
 private:
+	Nitro::ShaderLibrary m_ShaderLibrary;
 	Nitro::Ref<Nitro::Shader> m_Shader;
 	Nitro::Ref<Nitro::VertexArray> m_VertexArray;
 
-	Nitro::Ref<Nitro::Shader> m_ColorShader, m_TexShader;
+	Nitro::Ref<Nitro::Shader> m_ColorShader;
 	Nitro::Ref<Nitro::VertexArray> m_SquareVA;
 
-	Nitro::Ref<Nitro::Texture2D> m_Texture2d;
-	Nitro::Ref<Nitro::Texture2D> m_TransparentTex;
+	Nitro::Ref<Nitro::Texture2D> m_Texture2d, m_TransparentTex;
 
 	Nitro::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
